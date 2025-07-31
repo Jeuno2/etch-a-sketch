@@ -1,4 +1,5 @@
 // reference declarations
+let log = console.log;
 const container = document.querySelector('.container');
 const button = document.querySelector('.btn');
 button.addEventListener('click', generateGrid);
@@ -12,6 +13,7 @@ function generateGrid() {
     while(isFalse) {
         dimension = Number(prompt('Enter a width no greater than 100 for a new grid to generate: '));
         if(dimension >= 1 && dimension <= 100) {
+
             isFalse = false;
         }
     }
@@ -30,8 +32,20 @@ function generateGrid() {
 
     // forEach div square if a mouseover event is detected adds new class .square-two to div
     divSquares.forEach(divSquare => {
+        let opacityCounter = 100;
         divSquare.addEventListener('mouseover', () => {
-        divSquare.classList.add('square-two');
+            divSquare.style.backgroundColor = getRandomColor();
+            if(opacityCounter > 0) {
+                divSquare.style.opacity = `${opacityCounter - 10}%`;
+            }
+            opacityCounter = opacityCounter - 10;
         });
     });
+} //end function generateGrid
+
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r},${g},${b})`;
 }
